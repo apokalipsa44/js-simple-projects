@@ -33,6 +33,26 @@ body {
   background-color: rgba(255, 255, 255, 0.88);
 }
 
-.span-two{
-    grid-column: span 2;
+.span-two {
+  grid-column: span 2;
+}
+
+.outcome {
+  grid-column: 1/-1;
+  background-color: rgba(0, 0, 0, 0.88);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  flex-direction: column;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+.outcome .previous-operand {
+  color: #cdddcc;
+  font-size: 1.5rem;
+}
+.outcome .current-operand{
+    color: #ccddee;
+    font-size: 2rem;
 }
