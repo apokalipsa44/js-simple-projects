@@ -20,12 +20,56 @@ class Calculator {
     this.currentOperand = this.currentOperand.toString() + number.toString();
   }
 
-  chooseOperation(operation) {}
+  chooseOperation(operation) {
+    if (this.previousOperand != "") {
+      this.compute();
+    }
+    this.operation = operation;
+    this.previousOperand = this.currentOperand;
+    this.currentOperand = "";
+  }
 
-  compute() {}
+  compute() {
+    switch (this.operation.toString()) {
+      case "+":
+        this.currentOperand = this.currentOperand + this.previousOperand;
+        this.previousOperand = "";
+        this.operation = undefined;
+        break;
+      case "-":
+        this.currentOperand = this.previousOperand - this.currentOperand;
+        this.previousOperand = "";
+        this.operation = undefined;
+        break;
+      case "*":
+        this.currentOperand = this.previousOperand * this.currentOperand;
+        this.previousOperand = "";
+        this.operation = undefined;
+        break;
+      case "/":
+        if (this.currentOperand.toString() === "0") {
+          this.currentOperand = "error division by zero!!";
+          this.previousOperand = "";
+          this.operation = undefined;
+          break;
+        }
+        this.currentOperand = this.previousOperand / this.currentOperand;
+        this.previousOperand = "";
+        this.operation = undefined;
+        break;
+      default:
+        this.currentOperand = 'something is not yes';
+        this.previousOperand = "";
+        this.operation = undefined;
+        break;
+    }
+    this.updateDisplay();
+  }
 
   updateDisplay() {
     this.currentOperandField.innerText = this.currentOperand;
+    this.previousOperandField.innerText =
+      this.previousOperand + " " + this.operation.toString();
   }
 }
 
@@ -41,6 +85,13 @@ const calculator = new Calculator(previousOperandField, currentOperandField);
 numberButtons.forEach((button) =>
   button.addEventListener("click", () => {
     calculator.appendNumber(button.innerText);
+    calculator.updateDisplay();
+  })
+);
+
+operationButtons.forEach((button) =>
+  button.addEventListener("click", () => {
+    calculator.chooseOperation(button.innerText);
     calculator.updateDisplay();
   })
 );
