@@ -11,10 +11,12 @@ class Calculator {
     this.operation = undefined;
   }
 
-  delete() {}
+  delete() {
+    this.currentOperand = this.currentOperand.toString().slice(0, -1);
+  }
 
   appendNumber(number) {
-    if (number === "." && this.currentOperand.includes(".")) {
+    if (this.currentOperand && number === "." && this.currentOperand.includes(".")) {
       return;
     }
     this.currentOperand = this.currentOperand.toString() + number.toString();
@@ -30,9 +32,11 @@ class Calculator {
   }
 
   compute() {
+      
     switch (this.operation.toString()) {
       case "+":
-        this.currentOperand = this.currentOperand + this.previousOperand;
+        this.currentOperand =
+          parseInt(this.currentOperand) + parseInt(this.previousOperand);
         this.previousOperand = "";
         this.operation = undefined;
         break;
@@ -58,18 +62,21 @@ class Calculator {
         this.operation = undefined;
         break;
       default:
-        this.currentOperand = 'something is not yes';
+        this.currentOperand = "something is not yes";
         this.previousOperand = "";
         this.operation = undefined;
         break;
     }
-    this.updateDisplay();
   }
 
   updateDisplay() {
     this.currentOperandField.innerText = this.currentOperand;
-    this.previousOperandField.innerText =
-      this.previousOperand + " " + this.operation.toString();
+    if (this.operation) {
+      this.previousOperandField.innerText =
+        this.previousOperand + " " + this.operation.toString();
+    } else {
+      this.previousOperandField.innerText = this.previousOperand;
+    }
   }
 }
 
@@ -95,3 +102,19 @@ operationButtons.forEach((button) =>
     calculator.updateDisplay();
   })
 );
+
+equalButton.addEventListener("click", () => {
+  calculator.compute();
+  calculator.updateDisplay();
+});
+
+clearButton.addEventListener("click", () => {
+  calculator.clear();
+  console.log("clear");
+  calculator.updateDisplay();
+});
+
+deleteButton.addEventListener("click", () => {
+  calculator.delete();
+  calculator.updateDisplay();
+});
