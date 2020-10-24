@@ -32,7 +32,7 @@ class Calculator {
   }
 
   compute() {
-      
+
     switch (this.operation.toString()) {
       case "+":
         this.currentOperand =
@@ -110,7 +110,6 @@ equalButton.addEventListener("click", () => {
 
 clearButton.addEventListener("click", () => {
   calculator.clear();
-  console.log("clear");
   calculator.updateDisplay();
 });
 
