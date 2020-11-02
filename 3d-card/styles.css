@@ -9,6 +9,97 @@
 body {
   padding: 0;
   margin: 0;
- 
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1500px;
 }
+
+.container {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  min-height: 80vh;
+  width: 35rem;
+  box-shadow: 0 20px 20px rgba(0, 0, 0, 0.22), 0 0 50px rgba(0, 0, 0, 0.22);
+  border-radius: 20px;
+  padding: 0 5rem;
+  transform-style: preserve-3d;
+}
+
+.gun {
+  min-height: 35vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gun img {
+  width: 20rem;
+  z-index: 20;
+}
+
+.circle {
+  width: 15rem;
+  height: 15rem;
+  background: linear-gradient(to bottom right, purple, green);
+  position: absolute;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.info h1{
+font-size: 3rem;
+}
+
+.info h3{
+  font-size: 1.3rem;
+  padding: 2rem 0rem;
+  color: grey;
+}
+
+.clips{
+  display: flex;
+  justify-content: space-between;
+}
+
+.clips button{
+  padding: 0.5rem 0.5rem;
+  background: none;
+  border: none;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.22);
+  border-radius: 0%;
+  font-weight: bold;
+  color: grey;
+}
+
+button.active{
+  border: none;
+  color: white;
+  background: grey;
+}
+
+.purchase button{
+  padding: 1rem 1rem;
+  width: 80%;
+  background: red;
+  border: none;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.22);
+  border-radius: 0%;
+  font-weight: bold;
+  color: white;
+  margin-top: 4rem;
+  margin-bottom: 2rem;
+  margin-left: auto;
+  margin-right: auto;
+  align-self: center;
+  display: block;
+}
+
 
