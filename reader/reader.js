@@ -1,19 +1,37 @@
-const fs = require("fs");
-const http = require("http");
+const S = require("string");
+const fs = require('fs')
 
-var express = require("express");
-var app = express();
-var path = require("path");
+const filesArr = [];
+const trimmedArr = [];
 
-app.get("/", function(req, res) {
-    res.sendFile(path.join(__dirname + "/index.html"));
+fs.readFile("testowy-js.txt", "utf-8", (err, data) => {
+  const lines = data.split("\n");
+  let counter = 1;
+
+  lines.forEach((line) => {
+    let trimmed = S(line).between("", ":").s;
+    while (S(trimmed).contains("/")) {
+      trimmed = S(trimmed).between("/").s;
+
+      if (!S(trimmed).contains("/")) {
+        trimmedArr.push(trimmed);
+      }
+    }
+  });
+
+  trimmedArr.forEach((world, index) => {
+    if (world === trimmedArr[index + 1]) {
+      counter++;
+    } else {
+      const newLine = { counter: counter, file: world };
+      filesArr.push(newLine);
+      fs.appendFile('out.txt', counter+";"+world+"\n", function (err) {
+        if (err) return console.log(err);
+        
+     });
+      counter = 1;
+    }
+  });
+  console.log("filesArr: ", filesArr);
 });
 
-
-
-app.listen(5000, () => console.log("listening on port 5000"));
-
-fs.readFile("file.txt", "utf8", function(err, data) {
-    if (err) throw err;
-    console.log(data);
-});

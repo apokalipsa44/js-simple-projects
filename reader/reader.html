@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.rawgit.com/jprichardson/string.js/master/dist/string.min.js"></script>
+</head>
+
+<body>
+    <input type="file" id='file-input' accept=".txt">
+    <script>
+
+        const fileInput = document.getElementById('file-input');
+        fileInput.addEventListener('change', (event) => {
+            const S = window.S;
+            const reader = new FileReader();
+            const scriptCount = 0;
+            const files = event.target.files;
+            const filesArr = [];
+            const trimmedArr = [];
+
+
+
+            reader.onload = () => {
+                const lines = reader.result.split('\n');
+                let counter = 1
+
+                lines.forEach(line => {
+                    let trimmed = (S(line).between('', ':').s)
+                    while (S(trimmed).contains("/")) {
+                        trimmed = S(trimmed).between('/').s;
+
+                        if (!S(trimmed).contains("/")) {
+                            trimmedArr.push(trimmed);
+
+                        }
+
+                    }
+                });
+
+                trimmedArr.forEach((world, index) => {
+                    if (world === trimmedArr[index + 1]) {
+                        counter++;
+
+                    } else {
+                        const newLine = { counter: counter, file: world }
+                        filesArr.push(newLine);
+                        counter = 1;
+                    }
+
+
+                })
+                console.log('filesArr: ', filesArr);
+            }
+            reader.readAsText(files[0])
+
+
+        });
+
+    </script>
+</body>
+
+</html>
